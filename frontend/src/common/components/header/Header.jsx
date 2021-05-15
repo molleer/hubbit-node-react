@@ -34,6 +34,7 @@ const Header = ({ children }) => {
 
     return (
         <DigitHeader
+            mainPadding="0"
             renderCustomHeader={() => (
                 <DigitLayout.Row flex="1" justifyContent="center">
                     <DigitText.Heading4
