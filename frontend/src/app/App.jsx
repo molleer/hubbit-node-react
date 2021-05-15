@@ -1,12 +1,23 @@
 import Home from "../use-cases/home";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
+import Header from "../common/components/header";
 
 const App = () => {
     return (
-        <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/" component={() => <div>404 Page not found</div>} />
-        </Switch>
+        <Header>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route
+                    exact
+                    path="/sessions"
+                    component={() => <Redirect to="/" />}
+                />
+                <Route
+                    path="/"
+                    component={() => <div>404 Page not found</div>}
+                />
+            </Switch>
+        </Header>
     );
 };
 
