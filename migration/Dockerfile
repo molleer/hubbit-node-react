@@ -1,6 +1,6 @@
 FROM alpine:3.7
 RUN apk add --no-cache mysql-client
-COPY schema.sql migrate.sh ./
+COPY schema.sql seeding.sql migrate.sh ./
 
 ENV DB_PASS=password
 ENV DB_USER=hubbit

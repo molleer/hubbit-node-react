@@ -1,11 +1,20 @@
 const express = require("express");
+const mysql = require("mysql");
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
-
-const app = express();
-
-app.get("/", (req, res) => {
-  res.status(200).send("Hello world!");
+const conn = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
-app.listen(PORT);
+const app = express();
+conn.connect();
+
+app.get("/", (_, res) => {
+  conn.query("SELECT * FROM users", (err, data) => {
+    res.json(data);
+  });
+});
+
+app.listen(Number(process.env.PORT));
