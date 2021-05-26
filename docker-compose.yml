@@ -1,0 +1,27 @@
+version: "3"
+volumes:
+  db-data:
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: hubbit_db
+      MYSQL_PASSWORD: password
+      MYSQL_USER: hubbit
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+  migration:
+    build:
+      context: migration
+      dockerfile: Dockerfile
+    environment:
+      DB_PASS: password
+      DB_USER: hubbit
+      DB_HOST: db
+      DB_NAME: hubbit_db
+    depends_on:
+      - db
