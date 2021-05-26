@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
+const { initRouters } = require("./routers");
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -11,10 +12,8 @@ const conn = mysql.createConnection({
 const app = express();
 conn.connect();
 
-app.get("/", (_, res) => {
-  conn.query("SELECT * FROM users", (err, data) => {
-    res.json(data);
-  });
-});
+const query = (query, vars, done) => conn.query(query, vars, done);
+
+initRouters(app, { query }, () => express.Router());
 
 app.listen(Number(process.env.PORT));
