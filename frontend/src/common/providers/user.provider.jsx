@@ -12,14 +12,17 @@ const UserProvider = ({ children }) => {
             .get("/api/checkLogin")
             .then(() => setUser({ is_logged_in: true }))
             .catch(err => {
-                if (err.response.data.match(/^http/)) {
+                if (
+                    err.response &&
+                    err.response.data &&
+                    err.response.data.match(/^http/)
+                ) {
                     window.location.href = err.response.data;
                     return;
                 }
-                console.log(err.response.data);
                 window.location.href = "/error";
             });
-    }, [user, history.location.pathname]);
+    }, [history.location.pathname]);
 
     return (
         <UserContext.Provider value={[user, setUser]}>

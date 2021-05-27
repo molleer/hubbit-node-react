@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     DigitHeader,
     DigitTabs,
@@ -31,6 +31,10 @@ const Header = ({ children }) => {
         history.push(value);
         setSelected(value);
     };
+
+    useEffect(() => {
+        setSelected(history.location.pathname);
+    }, [setSelected, history.location.pathname]);
 
     return (
         <DigitHeader
