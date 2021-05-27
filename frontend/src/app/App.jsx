@@ -1,6 +1,7 @@
 import Home from "../use-cases/home";
 import { Route, Switch, Redirect } from "react-router";
 import Header from "../common/components/header";
+import Callback from "../use-cases/callback";
 
 const App = () => {
     return (
@@ -11,6 +12,11 @@ const App = () => {
                     exact
                     path="/sessions"
                     component={() => <Redirect to="/" />}
+                />
+                <Route path="/callback" component={Callback} />
+                <Route
+                    path="/error"
+                    component={() => <div>An error has occurred</div>}
                 />
                 <Route
                     path="/"
