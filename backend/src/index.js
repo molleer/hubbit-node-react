@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
+const passport = require("passport");
 const { initRouters } = require("./routers");
+const { initMiddleware } = require("./middleware");
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -14,6 +16,7 @@ conn.connect();
 
 const query = (query, vars, done) => conn.query(query, vars, done);
 
-initRouters(app, { query }, () => express.Router());
+initMiddleware(app, passport);
+initRouters(app, { query, passport }, () => express.Router());
 
 app.listen(Number(process.env.PORT));
