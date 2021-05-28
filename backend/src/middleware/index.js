@@ -3,6 +3,7 @@ const { init } = require("./gamma.strategy");
 const session = require("express-session");
 
 const initMiddleware = (app, passport) => {
+  //Passport
   init(passport);
   app.use(express.urlencoded({ extended: false }));
   app.use(
@@ -14,6 +15,9 @@ const initMiddleware = (app, passport) => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+
+  //Other
+  app.use(express.json());
 };
 
 const checkGammaLogin = (req, res, next) => {

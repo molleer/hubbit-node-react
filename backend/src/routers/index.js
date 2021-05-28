@@ -1,4 +1,7 @@
-const { handleGetDevices } = require("../controllers/user.controller");
+const {
+  handleGetDevices,
+  handleCreateDevice,
+} = require("../controllers/user.controller");
 const {
   handleCheckLogin,
   handleGammaCallback,
@@ -16,7 +19,7 @@ const unprotectedRoutes = (router, tools) => {
 const protectedRoutes = (router, tools) => {
   router.get("/checkLogin", checkGammaLogin, handleCheckLogin(tools));
   router.get("/devices", checkGammaLogin, handleGetDevices(tools));
-
+  router.post("/devices", checkGammaLogin, handleCreateDevice(tools));
   return router;
 };
 

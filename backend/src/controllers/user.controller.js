@@ -1,4 +1,7 @@
-const { getUserDevices } = require("../repositories/user.repository");
+const {
+  getUserDevices,
+  createUserDevice,
+} = require("../repositories/user.repository");
 
 const handleGetDevices =
   ({ query }) =>
@@ -11,4 +14,16 @@ const handleGetDevices =
       });
   };
 
-module.exports = { handleGetDevices };
+const handleCreateDevice =
+  ({ query }) =>
+  (req, res) => {
+    createUserDevice(query, req.user.cid, req.body)
+      .then(() => {
+        res.status(201).end();
+      })
+      .catch(() => {
+        res.status(400).end();
+      });
+  };
+
+module.exports = { handleGetDevices, handleCreateDevice };
