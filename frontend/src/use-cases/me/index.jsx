@@ -16,7 +16,13 @@ const Me = () => {
                 <DigitCRUD
                     path="/me"
                     readAllRequest={() => axios.get("/api/devices")}
+                    readOneRequest={address =>
+                        axios.get("/api/devices?address=" + address)
+                    }
                     createRequest={device => axios.post("/api/devices", device)}
+                    deleteRequest={address =>
+                        axios.delete("/api/devices/" + address)
+                    }
                     keysOrder={["device_name", "address"]}
                     keysText={{
                         device_name: "Device Name",
@@ -47,6 +53,7 @@ const Me = () => {
                     }}
                     createButtonText="New device"
                     createTitle="New device"
+                    detailsButtonText="Details"
                 />
             </DigitLayout.Column>
         </DigitLayout.Row>

@@ -22,8 +22,12 @@ const protectedRoutes = (router, tools) => {
 
   router.get("/devices", checkGammaLogin, handleGetDevices(tools));
   router.post("/devices", checkGammaLogin, handleCreateDevice(tools));
-  router.delete("/devices", checkGammaLogin, handleDeleteDevice(tools));
-  
+  router.delete(
+    "/devices/:address",
+    checkGammaLogin,
+    handleDeleteDevice(tools),
+  );
+
   return router;
 };
 

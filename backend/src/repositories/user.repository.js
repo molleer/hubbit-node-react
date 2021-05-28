@@ -7,6 +7,13 @@ const getUserDevices = (query, cid) =>
     [cid],
   );
 
+const getUserDevice = (query, cid, { address }) =>
+  toPromise(
+    query,
+    "SELECT device_name, address FROM mac_addresses WHERE user_id=? AND address=?",
+    [cid, address],
+  );
+
 const createUserDevice = (query, cid, { device_name, address }) =>
   toPromise(
     query,
@@ -22,4 +29,9 @@ const deleteUserDevice = (query, cid, { address }) =>
     address,
   ]);
 
-module.exports = { getUserDevices, createUserDevice, deleteUserDevice };
+module.exports = {
+  getUserDevices,
+  getUserDevice,
+  createUserDevice,
+  deleteUserDevice,
+};

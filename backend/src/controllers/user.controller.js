@@ -1,5 +1,6 @@
 const {
   getUserDevices,
+  getUserDevice,
   createUserDevice,
   deleteUserDevice,
 } = require("../repositories/user.repository");
@@ -7,12 +8,17 @@ const {
 const handleGetDevices =
   ({ query }) =>
   (req, res) => {
-    getUserDevices(query, req.user.cid)
-      .then(data => res.json(data))
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+    if (!req.query.address)
+      getUserDevices(query, req.user.cid)
+        .then(data => res.json(data))
+        .catch(err => {
+          console.log(err);
+          res.sendStatus(500);
+        });
+    else
+      getUserDevice(query, req.user.cid, req.query)
+        .then(data => res.json(data[0]))
+        .catch(() => res.status(400).end());
   };
 
 const handleCreateDevice =
@@ -26,7 +32,7 @@ const handleCreateDevice =
 const handleDeleteDevice =
   ({ query }) =>
   (req, res) => {
-    deleteUserDevice(query, req.user.cid, req.body)
+    deleteUserDevice(query, req.user.cid, req.params)
       .then(dbRes => {
         if (dbRes.affectedRows <= 0) {
           res.status(400).end();
