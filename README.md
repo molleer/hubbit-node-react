@@ -7,8 +7,8 @@
 Setup dependencies
 
 ```
-docker-compose -f ../gamma.docker-compose.yml up -d
-docker-compose up -d db
+docker compose -f gamma.docker-compose.yml up -d
+docker compose up -d db
 ```
 
 Wait a few seconds until the db is ready for connections and run

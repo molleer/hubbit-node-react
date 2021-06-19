@@ -51,7 +51,7 @@ const Me = () => {
                             }
                         }
                     }}
-                    createButtonText="New device"
+                    createButtonText="Submit"
                     createTitle="New device"
                     detailsButtonText="Details"
                 />
